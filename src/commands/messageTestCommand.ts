@@ -1,5 +1,5 @@
 import { ApplyOptions } from '@sapphire/decorators';
-import { Command } from '@sapphire/framework';
+import { Command, UserError } from '@sapphire/framework';
 import type { Message } from 'discord.js';
 import { send } from '@sapphire/plugin-editable-commands';
 
@@ -8,6 +8,12 @@ import { send } from '@sapphire/plugin-editable-commands';
 })
 export class UserCommand extends Command {
 	public override async messageRun(message: Message) {
-		return send(message, "hello");
+		if (0 == 0) {
+			throw new UserError({
+				identifier: 'DatabaseError',
+				message: 'CRITICAL: Database connection lost while fetching user profile!'
+			});
+		}
+		return send(message, "news and stuff");
 	}
 }
