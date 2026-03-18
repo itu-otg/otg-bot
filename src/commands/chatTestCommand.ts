@@ -14,6 +14,10 @@ export class UserCommand extends Command {
 	}
 
 	public override async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
+		if (0 == 0) {
+			throw new Error('CRITICAL: Database connection lost while fetching user profile!');
+		}
 		return interaction.reply({ content: 'Hello world!' });
+
 	}
 }
