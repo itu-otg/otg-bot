@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model GuildSettings {
+  id                      String    @id @default(uuid())
+  guildID                 String    @unique
+  adminRoleID             String?   @unique
+  notificationChannelID   String?   @unique
+  prefix                  String?
+  lastConfigUpdate        DateTime?
+  jamPositionateChannelID String?
+  isActive                Boolean   @default(false)
+}
+
+model GuildUser {
+  id        String @id @default(uuid())
+  discordID String
+  guildID   String @unique
+  xp        Int    @default(0)
+}
+
+model JamTeam {
+  id             String          @id @default(uuid())
+  name           String
+  guildID        String
+  members        JamTeamMember[]
+  categoryID     String
+  textChannelID  String
+  voiceChannelID String
+  discordRoleID  String
+  createdAt      DateTime        @default(now())
+}
+
+model JamTeamMember {
+  id           String   @id @default(uuid())
+  team         JamTeam  @relation(fields: [teamID], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  teamID       String
+  userID       String
+  role         String
+  isTeamLeader Boolean  @default(false)
+  joined       DateTime @default(now())
+}
