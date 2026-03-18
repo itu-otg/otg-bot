@@ -28,6 +28,7 @@ const client = new SapphireClient({
 });
 
 const main = async () => {
+	console.log("CURRENT DATABASE URL:", process.env.DATABASE_URL);
 	try {
 		client.logger.info('Logging in');
 		await client.login();
